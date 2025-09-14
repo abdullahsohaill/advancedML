@@ -1,0 +1,1 @@
+This repository is organized by assignment number for the course CS 6302 - Advanced Topics in Machine Learning. Each assignment has its own dedicated folder containing the relevant code and outputs.
