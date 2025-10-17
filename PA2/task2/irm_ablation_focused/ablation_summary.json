@@ -1,0 +1,44 @@
+[
+  {
+    "config": {
+      "irm_lambda": 10,
+      "penalty_anneal_iters": 1000
+    },
+    "best_target_acc": 64.62204123186561
+  },
+  {
+    "config": {
+      "irm_lambda": 100,
+      "penalty_anneal_iters": 1000
+    },
+    "best_target_acc": 66.55637566810893
+  },
+  {
+    "config": {
+      "irm_lambda": 1000,
+      "penalty_anneal_iters": 1000
+    },
+    "best_target_acc": 62.38228556884704
+  },
+  {
+    "config": {
+      "irm_lambda": 100,
+      "penalty_anneal_iters": 100
+    },
+    "best_target_acc": 66.14914736574192
+  },
+  {
+    "config": {
+      "irm_lambda": 100,
+      "penalty_anneal_iters": 500
+    },
+    "best_target_acc": 67.14176635276152
+  },
+  {
+    "config": {
+      "irm_lambda": 100,
+      "penalty_anneal_iters": 1000
+    },
+    "best_target_acc": 65.15652837872233
+  }
+]
