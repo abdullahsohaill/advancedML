@@ -396,7 +396,7 @@ class QIntDynamicLayer(nn.Module):
 # ==================== Fake Quantization for QAT ====================
 
 class FakeQuantize(nn.Module):
-    def __init__(self, bitwidth=8, per_channel=False, asymmetric=True, channel_dim=0):
+    def __init__(self, bitwidth=8, per_channel=False, asymmetric=True, channel_dim=0, ema_momentum=0.1):
         super().__init__()
         self.bitwidth = bitwidth
         self.qmin = -2**(bitwidth - 1)
@@ -404,36 +404,44 @@ class FakeQuantize(nn.Module):
         self.per_channel = per_channel
         self.asymmetric = asymmetric
         self.channel_dim = channel_dim
+        self.ema_momentum = ema_momentum
+        
         self.register_buffer('scale', torch.tensor(1.0))
         self.register_buffer('zero_point', torch.tensor(0.0))
-        
+        self.register_buffer('min_val', torch.tensor(float('inf')))
+        self.register_buffer('max_val', torch.tensor(float('-inf')))
+
     def forward(self, x):
         if self.training:
             if self.per_channel and x.dim() > 1:
                 dims = list(range(x.dim()))
                 dims.pop(self.channel_dim)
-                
-                rmin = x.amin(dim=dims, keepdim=True)
-                rmax = x.amax(dim=dims, keepdim=True)
+                batch_min = x.amin(dim=dims, keepdim=True).detach()
+                batch_max = x.amax(dim=dims, keepdim=True).detach()
             else:
-                rmin = x.min()
-                rmax = x.max()
-            if self.asymmetric:
-                scale = (rmax - rmin) / (self.qmax - self.qmin)
-                scale = torch.where(scale == 0, torch.ones_like(scale), scale)
-                zero_point = torch.round(self.qmin - rmin.detach() / scale)
-            else: 
-                absmax = torch.max(torch.abs(rmin), torch.abs(rmax))
-                scale = absmax / ((self.qmax - self.qmin) / 2)
-                scale = torch.where(scale == 0, torch.ones_like(scale), scale)
-                zero_point = torch.zeros_like(scale)
-                
-            zero_point = torch.clamp(zero_point, self.qmin, self.qmax)
-            x_q = torch.clamp(torch.round(x / scale + zero_point), self.qmin, self.qmax)
-            x_dq = (x_q - zero_point) * scale
-            return x + (x_dq - x).detach()
+                batch_min = x.min().detach()
+                batch_max = x.max().detach()
+
+            if self.min_val.isinf():
+                self.min_val.copy_(batch_min)
+                self.max_val.copy_(batch_max)
+            else:
+                self.min_val.mul_(1.0 - self.ema_momentum).add_(batch_min * self.ema_momentum)
+                self.max_val.mul_(1.0 - self.ema_momentum).add_(batch_max * self.ema_momentum)
+            
+            rmin, rmax = self.min_val, self.max_val
+            current_scale, current_zero_point = scale_zeropoint(rmin, rmax, self.qmin, self.qmax, self.asymmetric)
         else:
-            return x
+            current_scale, current_zero_point = self.scale, self.zero_point
+
+        x_q = torch.clamp(torch.round(x / current_scale + current_zero_point), self.qmin, self.qmax)
+        x_dq = (x_q - current_zero_point) * current_scale
+        return x + (x_dq - x).detach()
+
+    def freeze_quantization_params(self):
+        final_scale, final_zero_point = scale_zeropoint(self.min_val, self.max_val, self.qmin, self.qmax, self.asymmetric)
+        self.scale.copy_(final_scale)
+        self.zero_point.copy_(final_zero_point)
 
 class QATConv2d(nn.Module):
     def __init__(self, conv_layer, bitwidth=8, weight_q_config=None):
@@ -487,15 +495,51 @@ def prepare_qat_model(model, bitwidth=8, weight_q_config=None):
     return _prepare(model)
 
 
-def convert_qat_to_quantized(model, dataloader, device, bitwidth=8):
-    """Convert QAT model to actual quantized model."""
-    # First calibrate to get activation statistics
-    observers = calibrate_model(model, dataloader, device)
+def convert_qat_to_int_model(qat_model, bitwidth=8, sym=True):
+    qat_model.eval()
+    for module in qat_model.modules():
+        if isinstance(module, FakeQuantize):
+            module.freeze_quantization_params()
+
+    model_to_convert = deepcopy(qat_model)
     
-    # Apply quantization
-    model = apply_ptq(model, observers, bitwidth)
-    
-    return model
+    if sym:
+        weight_q_config = {'per_channel': False, 'asymmetric': False}
+    else:
+        weight_q_config = {'per_channel': True, 'asymmetric': True}
+
+    def _convert(module):
+        for name, child in list(module.named_children()):
+            if isinstance(child, (QATConv2d, QATLinear)):
+                original_layer = child.conv if isinstance(child, QATConv2d) else child.linear
+                
+                weight_q, scale_w, zp_w = quantize_weight(
+                    original_layer.weight.data, bitwidth, **weight_q_config
+                )
+                
+                del original_layer._parameters['weight']
+                original_layer.register_buffer("weight_q", weight_q)
+                original_layer.register_buffer("scale_w", scale_w)
+                original_layer.register_buffer("zp_w", zp_w)
+
+                if original_layer.bias is not None:
+                    original_layer.register_buffer("bias_fp32", original_layer.bias.data.clone())
+                    del original_layer._parameters['bias']
+                
+                act_quantizer = child.act_fake_quant
+                output_quantizer = child.output_fake_quant
+                original_layer.register_buffer("scale_act", act_quantizer.scale)
+                original_layer.register_buffer("zp_act", act_quantizer.zero_point)
+                original_layer.register_buffer("scale_out", output_quantizer.scale)
+                original_layer.register_buffer("zp_out", output_quantizer.zero_point)
+                
+                quantized_int_layer = QIntLayer(original_layer, bitwidth)
+                setattr(module, name, quantized_int_layer)
+            else:
+                _convert(child)
+        return module
+
+    return _convert(model_to_convert)
 
 def unwrap_qat_model(model):
     unwrapped_model = deepcopy(model)
@@ -589,8 +633,10 @@ def ptq_pipeline(model, calibration_loader, device, bitwidth=8, static=True, sym
 from utils import evaluate
 def qat_pipeline(model, train_loader, val_loader, calibration_loader, device, bitwidth=8, 
                  epochs=5, lr=1e-5, sym=True): 
-    print(f"Starting QAT with bitwidth={bitwidth}, epochs={epochs}, lr={lr}")
-    model = bnfold_vgg(model, device)
+    print(f"Starting Integrated QAT with bitwidth={bitwidth}, epochs={epochs}, lr={lr}")
+    model_copy = deepcopy(model)
+    model_copy = bnfold_vgg(model_copy, device)
+    
     if sym:
         print("Configuring QAT for Symmetric, Per-Tensor weights.")
         weight_q_config = {'per_channel': False, 'asymmetric': False}
@@ -598,8 +644,8 @@ def qat_pipeline(model, train_loader, val_loader, calibration_loader, device, bi
         print("Configuring QAT for Asymmetric, Per-Channel weights.")
         weight_q_config = {'per_channel': True, 'asymmetric': True}
 
-    print("Preparing model for QAT...")
-    qat_model = prepare_qat_model(deepcopy(model), bitwidth, weight_q_config)
+    print("Preparing model for Integrated QAT...")
+    qat_model = prepare_qat_model(model_copy, bitwidth, weight_q_config)
     qat_model = qat_model.to(device)
     
     print("Training QAT model...")
@@ -619,26 +665,19 @@ def qat_pipeline(model, train_loader, val_loader, calibration_loader, device, bi
             running_loss += loss.item()
         
         qat_model.eval()
+        for module in qat_model.modules():
+            if isinstance(module, FakeQuantize):
+                module.freeze_quantization_params()
+
         val_acc = evaluate(qat_model, val_loader, device)
         avg_loss = running_loss / len(train_loader)
         
-        print(f"QAT Epoch {epoch+1}/{epochs} | Training Loss: {avg_loss:.3f} | Validation Accuracy: {val_acc:.2f}%")
+        print(f"QAT Epoch {epoch+1}/{epochs} | Training Loss: {avg_loss:.3f} | Validation Accuracy (Q-Sim): {val_acc:.2f}%")
 
-    print("\nConverting trained QAT model to final quantized format...")
-    print("Unwrapping QAT model...")
-    fine_tuned_fp32_model = unwrap_qat_model(qat_model.cpu())
-
-    print("Applying PTQ to the fine-tuned model...")
-    final_quantized_model = ptq_pipeline(
-        fine_tuned_fp32_model, 
-        calibration_loader, 
-        device, 
-        bitwidth, 
-        static=True, 
-        sym=sym
-    )
+    print("\nConverting trained QAT model to final integer format...")
+    final_quantized_model = convert_qat_to_int_model(qat_model, bitwidth, sym=sym)
     
-    print("QAT completed!")
+    print("Integrated QAT completed!")
     return final_quantized_model
 
 # ==================== Mixed-Precision Quantization ====================
