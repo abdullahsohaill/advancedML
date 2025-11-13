@@ -1,0 +1,261 @@
+--- Generating data partition for alpha = 0.1 ---
+
+--- Running FedAvg Baseline (alpha=0.1) ---
+FedAvg Round 1/50 | Accuracy: 10.30% | Time: 51.17s
+FedAvg Round 2/50 | Accuracy: 13.66% | Time: 50.30s
+FedAvg Round 3/50 | Accuracy: 19.60% | Time: 24.17s
+FedAvg Round 4/50 | Accuracy: 21.31% | Time: 20.81s
+FedAvg Round 5/50 | Accuracy: 23.44% | Time: 21.07s
+FedAvg Round 6/50 | Accuracy: 26.21% | Time: 21.26s
+FedAvg Round 7/50 | Accuracy: 27.47% | Time: 21.44s
+FedAvg Round 8/50 | Accuracy: 29.51% | Time: 21.54s
+FedAvg Round 9/50 | Accuracy: 30.39% | Time: 21.25s
+FedAvg Round 10/50 | Accuracy: 31.38% | Time: 21.32s
+FedAvg Round 11/50 | Accuracy: 33.35% | Time: 21.31s
+FedAvg Round 12/50 | Accuracy: 33.60% | Time: 21.84s
+FedAvg Round 13/50 | Accuracy: 35.71% | Time: 21.85s
+FedAvg Round 14/50 | Accuracy: 35.36% | Time: 21.53s
+FedAvg Round 15/50 | Accuracy: 36.56% | Time: 21.45s
+FedAvg Round 16/50 | Accuracy: 36.40% | Time: 21.86s
+FedAvg Round 17/50 | Accuracy: 38.09% | Time: 21.54s
+FedAvg Round 18/50 | Accuracy: 38.09% | Time: 21.56s
+FedAvg Round 19/50 | Accuracy: 37.33% | Time: 21.67s
+FedAvg Round 20/50 | Accuracy: 39.99% | Time: 21.23s
+FedAvg Round 21/50 | Accuracy: 39.82% | Time: 20.71s
+FedAvg Round 22/50 | Accuracy: 41.45% | Time: 20.83s
+FedAvg Round 23/50 | Accuracy: 41.13% | Time: 21.04s
+FedAvg Round 24/50 | Accuracy: 42.35% | Time: 21.08s
+FedAvg Round 25/50 | Accuracy: 42.36% | Time: 21.11s
+FedAvg Round 26/50 | Accuracy: 41.95% | Time: 21.10s
+FedAvg Round 27/50 | Accuracy: 42.16% | Time: 21.08s
+FedAvg Round 28/50 | Accuracy: 43.37% | Time: 20.72s
+FedAvg Round 29/50 | Accuracy: 43.27% | Time: 20.77s
+FedAvg Round 30/50 | Accuracy: 44.07% | Time: 20.65s
+FedAvg Round 31/50 | Accuracy: 43.89% | Time: 21.39s
+FedAvg Round 32/50 | Accuracy: 44.89% | Time: 21.23s
+FedAvg Round 33/50 | Accuracy: 44.99% | Time: 20.88s
+FedAvg Round 34/50 | Accuracy: 45.37% | Time: 20.80s
+FedAvg Round 35/50 | Accuracy: 45.86% | Time: 21.06s
+FedAvg Round 36/50 | Accuracy: 45.75% | Time: 20.80s
+FedAvg Round 37/50 | Accuracy: 45.61% | Time: 20.68s
+FedAvg Round 38/50 | Accuracy: 46.09% | Time: 20.55s
+FedAvg Round 39/50 | Accuracy: 46.33% | Time: 20.81s
+FedAvg Round 40/50 | Accuracy: 46.48% | Time: 20.79s
+FedAvg Round 41/50 | Accuracy: 47.01% | Time: 20.61s
+FedAvg Round 42/50 | Accuracy: 46.61% | Time: 20.66s
+FedAvg Round 43/50 | Accuracy: 47.60% | Time: 20.68s
+FedAvg Round 44/50 | Accuracy: 47.96% | Time: 20.77s
+FedAvg Round 45/50 | Accuracy: 47.83% | Time: 21.50s
+FedAvg Round 46/50 | Accuracy: 47.94% | Time: 21.54s
+FedAvg Round 47/50 | Accuracy: 48.26% | Time: 20.85s
+FedAvg Round 48/50 | Accuracy: 48.52% | Time: 20.91s
+FedAvg Round 49/50 | Accuracy: 49.03% | Time: 45.38s
+FedAvg Round 50/50 | Accuracy: 49.33% | Time: 50.50s
+
+
+--- Running SCAFFOLD Experiment (alpha=0.1) ---
+                                                                    
+SCAFFOLD Round 1/50 | Accuracy: 16.70% | Time: 61.93s
+                                                                    
+SCAFFOLD Round 2/50 | Accuracy: 18.15% | Time: 38.84s
+                                                                    
+SCAFFOLD Round 3/50 | Accuracy: 23.69% | Time: 39.94s
+                                                                    
+SCAFFOLD Round 4/50 | Accuracy: 32.54% | Time: 40.07s
+                                                                    
+SCAFFOLD Round 5/50 | Accuracy: 36.90% | Time: 39.42s
+                                                                    
+SCAFFOLD Round 6/50 | Accuracy: 36.14% | Time: 51.41s
+                                                                    
+SCAFFOLD Round 7/50 | Accuracy: 36.59% | Time: 40.89s
+                                                                    
+SCAFFOLD Round 8/50 | Accuracy: 39.69% | Time: 61.87s
+                                                                    
+SCAFFOLD Round 9/50 | Accuracy: 38.02% | Time: 72.43s
+                                                                     
+SCAFFOLD Round 10/50 | Accuracy: 40.71% | Time: 41.63s
+                                                                     
+SCAFFOLD Round 11/50 | Accuracy: 42.16% | Time: 57.94s
+                                                                     
+SCAFFOLD Round 12/50 | Accuracy: 43.20% | Time: 52.39s
+                                                                     
+SCAFFOLD Round 13/50 | Accuracy: 41.18% | Time: 47.02s
+                                                                     
+SCAFFOLD Round 14/50 | Accuracy: 48.69% | Time: 37.07s
+                                                                     
+SCAFFOLD Round 15/50 | Accuracy: 47.80% | Time: 49.31s
+                                                                     
+SCAFFOLD Round 16/50 | Accuracy: 46.72% | Time: 39.77s
+                                                                     
+SCAFFOLD Round 17/50 | Accuracy: 40.31% | Time: 38.51s
+                                                                     
+SCAFFOLD Round 18/50 | Accuracy: 42.51% | Time: 58.18s
+                                                                     
+SCAFFOLD Round 19/50 | Accuracy: 43.47% | Time: 47.34s
+                                                                     
+SCAFFOLD Round 20/50 | Accuracy: 46.08% | Time: 39.03s
+                                                                     
+SCAFFOLD Round 21/50 | Accuracy: 46.32% | Time: 40.00s
+                                                                     
+SCAFFOLD Round 22/50 | Accuracy: 51.96% | Time: 39.37s
+                                                                     
+SCAFFOLD Round 23/50 | Accuracy: 47.82% | Time: 39.07s
+                                                                     
+SCAFFOLD Round 24/50 | Accuracy: 50.59% | Time: 40.25s
+                                                                     
+SCAFFOLD Round 25/50 | Accuracy: 46.33% | Time: 40.10s
+                                                                     
+SCAFFOLD Round 26/50 | Accuracy: 51.69% | Time: 39.98s
+                                                                     
+SCAFFOLD Round 27/50 | Accuracy: 48.50% | Time: 40.45s
+                                                                     
+SCAFFOLD Round 28/50 | Accuracy: 53.12% | Time: 40.59s
+                                                                     
+SCAFFOLD Round 29/50 | Accuracy: 48.06% | Time: 41.18s
+                                                                     
+SCAFFOLD Round 30/50 | Accuracy: 51.62% | Time: 41.17s
+                                                                     
+SCAFFOLD Round 31/50 | Accuracy: 48.50% | Time: 41.20s
+                                                                     
+SCAFFOLD Round 32/50 | Accuracy: 54.70% | Time: 40.17s
+                                                                     
+SCAFFOLD Round 33/50 | Accuracy: 54.57% | Time: 40.50s
+                                                                     
+SCAFFOLD Round 34/50 | Accuracy: 56.14% | Time: 40.38s
+                                                                     
+SCAFFOLD Round 35/50 | Accuracy: 52.73% | Time: 39.81s
+                                                                     
+SCAFFOLD Round 36/50 | Accuracy: 55.31% | Time: 40.38s
+                                                                     
+SCAFFOLD Round 37/50 | Accuracy: 50.36% | Time: 39.96s
+                                                                     
+SCAFFOLD Round 38/50 | Accuracy: 58.01% | Time: 39.16s
+                                                                     
+SCAFFOLD Round 39/50 | Accuracy: 52.19% | Time: 39.87s
+                                                                     
+SCAFFOLD Round 40/50 | Accuracy: 55.89% | Time: 39.58s
+                                                                     
+SCAFFOLD Round 41/50 | Accuracy: 56.08% | Time: 39.26s
+                                                                     
+SCAFFOLD Round 42/50 | Accuracy: 57.25% | Time: 40.17s
+                                                                     
+SCAFFOLD Round 43/50 | Accuracy: 57.86% | Time: 39.98s
+                                                                     
+SCAFFOLD Round 44/50 | Accuracy: 58.65% | Time: 40.38s
+                                                                     
+SCAFFOLD Round 45/50 | Accuracy: 53.61% | Time: 40.90s
+                                                                     
+SCAFFOLD Round 46/50 | Accuracy: 56.52% | Time: 40.65s
+                                                                     
+SCAFFOLD Round 47/50 | Accuracy: 57.12% | Time: 40.09s
+                                                                     
+SCAFFOLD Round 48/50 | Accuracy: 57.46% | Time: 40.50s
+                                                                     
+SCAFFOLD Round 49/50 | Accuracy: 57.82% | Time: 40.35s
+                                                                     
+SCAFFOLD Round 50/50 | Accuracy: 55.50% | Time: 40.58s
+--- Saving SCAFFOLD results to task4_2/results/scaffold_alpha_0.1.pkl ---
+
+
+--- Running FedGH Experiment (alpha=0.1, global_lr=1.0) ---
+                                                                           
+FedGH Round 1/50 | Accuracy: 16.59% | Time: 43.45s
+                                                                           
+FedGH Round 2/50 | Accuracy: 25.91% | Time: 27.73s
+                                                                           
+FedGH Round 3/50 | Accuracy: 26.10% | Time: 28.48s
+                                                                           
+FedGH Round 4/50 | Accuracy: 29.38% | Time: 29.15s
+                                                                           
+FedGH Round 5/50 | Accuracy: 32.89% | Time: 27.95s
+                                                                           
+FedGH Round 6/50 | Accuracy: 33.58% | Time: 27.51s
+                                                                           
+FedGH Round 7/50 | Accuracy: 36.58% | Time: 28.00s
+                                                                           
+FedGH Round 8/50 | Accuracy: 38.85% | Time: 27.61s
+                                                                           
+FedGH Round 9/50 | Accuracy: 39.63% | Time: 27.55s
+                                                                            
+FedGH Round 10/50 | Accuracy: 41.02% | Time: 27.52s
+                                                                            
+FedGH Round 11/50 | Accuracy: 40.11% | Time: 27.52s
+                                                                            
+FedGH Round 12/50 | Accuracy: 42.60% | Time: 29.81s
+                                                                            
+FedGH Round 13/50 | Accuracy: 45.81% | Time: 27.16s
+                                                                            
+FedGH Round 14/50 | Accuracy: 43.95% | Time: 28.66s
+                                                                            
+FedGH Round 15/50 | Accuracy: 45.36% | Time: 27.59s
+                                                                            
+FedGH Round 16/50 | Accuracy: 44.92% | Time: 28.75s
+                                                                            
+FedGH Round 17/50 | Accuracy: 47.25% | Time: 28.80s
+                                                                            
+FedGH Round 18/50 | Accuracy: 45.10% | Time: 27.26s
+                                                                            
+FedGH Round 19/50 | Accuracy: 48.83% | Time: 27.23s
+                                                                            
+FedGH Round 20/50 | Accuracy: 46.06% | Time: 28.08s
+                                                                            
+FedGH Round 21/50 | Accuracy: 50.65% | Time: 29.77s
+                                                                            
+FedGH Round 22/50 | Accuracy: 49.34% | Time: 28.63s
+                                                                            
+FedGH Round 23/50 | Accuracy: 50.47% | Time: 28.14s
+                                                                            
+FedGH Round 24/50 | Accuracy: 49.31% | Time: 29.05s
+                                                                            
+FedGH Round 25/50 | Accuracy: 51.36% | Time: 29.02s
+                                                                            
+FedGH Round 26/50 | Accuracy: 48.81% | Time: 28.30s
+                                                                            
+FedGH Round 27/50 | Accuracy: 52.60% | Time: 28.95s
+                                                                            
+FedGH Round 28/50 | Accuracy: 49.63% | Time: 27.55s
+                                                                            
+FedGH Round 29/50 | Accuracy: 54.64% | Time: 29.00s
+                                                                            
+FedGH Round 30/50 | Accuracy: 51.81% | Time: 28.78s
+                                                                            
+FedGH Round 31/50 | Accuracy: 56.40% | Time: 27.68s
+                                                                            
+FedGH Round 32/50 | Accuracy: 53.30% | Time: 27.29s
+                                                                            
+FedGH Round 33/50 | Accuracy: 56.12% | Time: 28.54s
+                                                                            
+FedGH Round 34/50 | Accuracy: 53.12% | Time: 27.95s
+                                                                            
+FedGH Round 35/50 | Accuracy: 58.22% | Time: 27.73s
+                                                                            
+FedGH Round 36/50 | Accuracy: 54.23% | Time: 27.43s
+                                                                            
+FedGH Round 37/50 | Accuracy: 57.75% | Time: 28.14s
+                                                                            
+FedGH Round 38/50 | Accuracy: 53.15% | Time: 28.41s
+                                                                            
+FedGH Round 39/50 | Accuracy: 56.13% | Time: 28.58s
+                                                                            
+FedGH Round 40/50 | Accuracy: 53.93% | Time: 28.90s
+                                                                            
+FedGH Round 41/50 | Accuracy: 57.49% | Time: 28.56s
+                                                                            
+FedGH Round 42/50 | Accuracy: 56.96% | Time: 29.12s
+                                                                            
+FedGH Round 43/50 | Accuracy: 57.14% | Time: 28.35s
+                                                                            
+FedGH Round 44/50 | Accuracy: 55.68% | Time: 27.49s
+                                                                            
+FedGH Round 45/50 | Accuracy: 54.03% | Time: 27.52s
+                                                                            
+FedGH Round 46/50 | Accuracy: 54.14% | Time: 28.70s
+                                                                            
+FedGH Round 47/50 | Accuracy: 59.76% | Time: 27.72s
+                                                                            
+FedGH Round 48/50 | Accuracy: 57.54% | Time: 27.73s
+                                                                            
+FedGH Round 49/50 | Accuracy: 56.79% | Time: 27.32s
+                                                                            
+FedGH Round 50/50 | Accuracy: 55.70% | Time: 29.52s
+--- Saving FedGH (glr=1.0) results to task4_3/results/fedgh_alpha_0.1_glr_1.0.pkl ---
