@@ -64,3 +64,11 @@ These scripts transform the raw evaluation data into the figures and tables used
 Used for the majority of the tasks. Requires stable `trl` versions.
 ```bash
 pip install torch transformers==4.36.2 trl==0.7.11 peft==0.7.1 datasets pandas seaborn matplotlib
+```
+### 2. GRPO Environment
+GRPO requires a newer version of the TRL library. Create a separate environment for the script inside the `PA5_GRPO` folder.
+```bash
+cd PA5_GRPO
+# Create/Activate venv
+pip install torch transformers trl>=0.8.6 peft accelerate datasets 
+```
