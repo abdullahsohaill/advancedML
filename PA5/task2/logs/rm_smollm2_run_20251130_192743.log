@@ -1,0 +1,8 @@
+2025-11-30 19:27:43,759 [INFO] Initialized Reward Model Run: rm_smollm2_run_20251130_192743
+2025-11-30 19:27:43,759 [INFO] Loading dataset: intel/orca_dpo_pairs
+2025-11-30 19:27:56,639 [INFO] Loading Model: HuggingFaceTB/smollm2-135M-SFT-Only
+2025-11-30 19:27:59,880 [INFO] We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+2025-11-30 19:28:00,101 [INFO] Initializing RewardTrainer...
+2025-11-30 19:28:04,046 [INFO] Starting Reward Model Training...
+2025-11-30 19:35:58,419 [INFO] Saving Reward Model to ./models/rm_smollm2_run_20251130_192743
+2025-11-30 19:35:58,967 [INFO] Reward Model Training Complete.

@@ -1,0 +1,10 @@
+2025-11-30 18:42:26,441 [INFO] Initialized Run: dpo_smollm2_run_20251130_184226
+2025-11-30 18:42:26,441 [INFO] Loading dataset: intel/orca_dpo_pairs
+2025-11-30 18:42:37,782 [INFO] Loading SFT Baseline Model: HuggingFaceTB/smollm2-135M-SFT-Only
+2025-11-30 18:42:38,581 [INFO] We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+2025-11-30 18:42:42,301 [INFO] Initializing DPOTrainer...
+2025-11-30 18:42:42,407 [INFO] Starting DPO Training...
+2025-11-30 19:15:51,840 [INFO] Saving final model to ./models/dpo_smollm2_run_20251130_184226
+2025-11-30 19:15:52,428 [INFO] Generating training graphs...
+2025-11-30 19:15:52,840 [INFO] Graphs saved to ./models/dpo_smollm2_run_20251130_184226\training_graphs.png
+2025-11-30 19:15:52,840 [INFO] DPO Training Complete.
